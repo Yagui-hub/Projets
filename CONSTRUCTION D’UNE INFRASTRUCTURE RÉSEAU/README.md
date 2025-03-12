@@ -25,9 +25,9 @@ L’objectif final est de fournir une infrastructure moderne qui soutienne l’�
 | Semaine 6 | FRANCOIS| YAGUI   | JESSY        | ELGHAIA      | LASSANA      | WALID        |
 | Semaine 7 | JESSY  | ELGHAIA  | LASSANA      | WALID        | YAGUI        | FRANCOIS     |
 | Semaine 8 | ELGHAIA| JESSY    | LASSANA      | WALID        | YAGUI        | FRANCOIS     |
-| Semaine 9 | LASSANA| WALID    | JESSY        | ELGHAIA      |              |              |
-| Semaine 10| WALID  | LASSANE  | JESSY        | ELGHAIA      |              |              |
-| Semaine 11| JESSY  | ELGHAIA  | LASSANA      | WALID        |              |              |
+| Semaine 9 | LASSANA| WALID    | JESSY        | ELGHAIA      | YAGUI             |    FRANÇOIS          |
+| Semaine 10| WALID  | LASSANE  | JESSY        | ELGHAIA      | YAGUI           |    FRANÇOIS          |
+| Semaine 11| YAGUI  | ELGHAIA  | LASSANA      | WALID        | JESSY            |    FRANÇOIS          |
 
 
 # Objectifs par print
