@@ -1,0 +1,49 @@
+
+# Script 3 : Désactivation d'un groupe
+
+# Importer le module Active Directory
+Import-Module ActiveDirectory
+
+# Chemin du fichier log
+$logFilePath = "C:\Users\Public\Documents\logs_desactivation_departements.txt"
+
+# Définir le chemin de l'OU cible
+$ouPath = "OU=UTILISATEUR,DC=billu,DC=remindme,DC=lan"
+
+# Demander le département à désactiver
+$departement = Read-Host "Entrez le nom du département à désactiver"
+
+# Initialiser le fichier log
+Add-Content -Path $logFilePath -Value "Début de la désactivation des groupes pour le département $departement : $(Get-Date)`n"
+
+# Rechercher les groupes liés au département
+try {
+    # Filtrer les groupes dans l'OU spécifiée contenant le nom du département
+    $utilisateur = Get-ADGroup -Filter "Name -like '*$departement*'" -SearchBase $ouPath -ErrorAction Stop
+
+    if ($utilisateur.Count -eq 0) {
+        Write-Host "Aucun groupe trouvé pour le département $departement dans UTILISATEUR." -ForegroundColor Red
+        Add-Content -Path $logFilePath -Value "Échec : Aucun groupe trouvé pour le département $departement à $(Get-Date)`n"
+        return
+    }
+
+    # Boucler sur les groupes trouvés et les désactiver
+    foreach ($utilisateur in $utilisateur) {
+        try {
+            # Modifier l'attribut Description pour indiquer la désactivation
+            Set-ADGroup -Identity $utilisateur.DistinguishedName -Description "Désactivé - $departement - $(Get-Date)"
+            Write-Host "Groupe utilisateur désactivé : $($utilisateur.Name)" -ForegroundColor Green
+            Add-Content -Path $logFilePath -Value "Groupe utilisateur désactivé : $($utilisateur.Name) pour le département $departement à $(Get-Date)`n"
+        } catch {
+            Write-Host ("Erreur lors de la désactivation du groupe {0} : {1}" -f $utilisateur.Name, $_.Exception.Message) -ForegroundColor Red
+            Add-Content -Path $logFilePath -Value "Erreur lors de la désactivation du groupe $($utilisateur.Name) : $($_.Exception.Message) à $(Get-Date)`n"
+        }
+    }
+} catch {
+    Write-Host ("Erreur lors de la recherche des départements {0} : {1}" -f $departement, $_.Exception.Message) -ForegroundColor Red
+    Add-Content -Path $logFilePath -Value "Erreur lors de la recherche des groupes pour le département $departement : $($_.Exception.Message) à $(Get-Date)`n"
+}
+
+# Ajouter une entrée finale au log
+Add-Content -Path $logFilePath -Value "Désactivation terminée pour le département $departement : $(Get-Date)`n"
+Write-Host "Désactivation terminée pour le département $departement." -ForegroundColor Cyan
