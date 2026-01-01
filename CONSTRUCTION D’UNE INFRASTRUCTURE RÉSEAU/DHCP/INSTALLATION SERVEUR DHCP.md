@@ -7,7 +7,7 @@ sudo apt install isc-dhcp-server -y
 **Configuration de l'interface réseau**
 
 ```bash 
-sudo nano /etc/default/isc-dhcp-ser
+sudo nano /etc/default/isc-dhcp-server
 ```
 
 **Ajouter à l'interface**
